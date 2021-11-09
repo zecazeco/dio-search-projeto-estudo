@@ -6,13 +6,14 @@ import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { ImageCard, RestaurantCard, Modal } from "../../components";
+import { ImageCard, RestaurantCard, Modal, Map } from "../../components";
 
-import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Map, Title, ListSection } from "./styles";
+import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Title, ListSection } from "./styles";
 
 const Home = () => {
   const [inputValue, setImputValue] = useState('');
   const [modalOpened, setModalOpened] = useState(false);
+  const [query, setQuery] = useState('');
 
   const settings = {
     dots: false,
@@ -21,6 +22,12 @@ const Home = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     adaptiveHeight: true,
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setQuery(inputValue);
+    }
   };
 
   return (
@@ -33,7 +40,11 @@ const Home = () => {
             outlined
             //onTrailingIconSelect={() => this.setState({value: ''})}
             trailingIcon={<MaterialIcon role="button" icon="search" />}>
-            <Input value={inputValue} onChange={(e) => setImputValue(e.target.value)} />
+            <Input 
+              value={inputValue} 
+              onKeyPress={handleKeyPress} 
+              onChange={(e) => setImputValue(e.target.value)} 
+            />
           </TextField>        
         </HeaderSection>
         <CarouselSection>
@@ -53,8 +64,8 @@ const Home = () => {
           <RestaurantCard />
         </ListSection>
       </Aside>
-      <Map />
-      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
+      <Map query={query} />
+    
     </Wrapper>
   );
 
