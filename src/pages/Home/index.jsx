@@ -6,8 +6,9 @@ import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
+import { ImageCard } from "../../components";
 
-import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, Map, Title, ListSection } from "./styles";
+import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Map, Title, ListSection } from "./styles";
 
 const Home = () => {
   const [inputValue, setImputValue] = useState('');
@@ -36,13 +37,15 @@ const Home = () => {
         </HeaderSection>
         <CarouselSection>
           <Title>Resultado:</Title>
-          <Slider {...settings}>
-            <div><img src={restaurante} alt='imagem padrao do carrossel' /></div>
-            <div><img src={restaurante} alt='imagem padrao do carrossel' /></div>
-            <div><img src={restaurante} alt='imagem padrao do carrossel' /></div>
-            <div><img src={restaurante} alt='imagem padrao do carrossel' /></div>
-            <div><img src={restaurante} alt='imagem padrao do carrossel' /></div>
-          </Slider>
+          <CarouselItems {...settings}>
+            <ImageCard photo={restaurante} title="nome do restaurante" />
+            <ImageCard photo={restaurante} />
+            <ImageCard photo={restaurante} />
+            <ImageCard photo={restaurante} />
+            <ImageCard photo={restaurante} />
+            <ImageCard photo={restaurante} />
+            <ImageCard photo={restaurante} />
+          </CarouselItems>
         </CarouselSection>
         <ListSection>
           <li>item</li>
