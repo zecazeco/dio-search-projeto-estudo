@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 //import Text from '../Text';
 
+export const Text = styled.h1`
+  line-height: 19px;
+  font-size: 16px;
+  font-weight: medium;
+  letter-spacing: 0.15px;
+`;
+
 export const Restaurant = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,7 +32,6 @@ export const RestaurantPhoto = styled.img`
   width: 100px;
   height: 100px;
   object-fit: cover;
-  display: ${({ imageLoaded }) => (imageLoaded ? 'block' : 'none')};
 `;
 
 export const Content = styled(Text)`

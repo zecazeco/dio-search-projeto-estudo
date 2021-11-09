@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from 'react-redux';
 import Slider from "react-slick";
 
 import TextField, { Input} from '@material/react-text-field';
@@ -14,7 +15,8 @@ const Home = () => {
   const [inputValue, setImputValue] = useState('');
   const [modalOpened, setModalOpened] = useState(false);
   const [query, setQuery] = useState('');
-
+  const { restaurants } = useSelector((state) => state.restaurants);
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -50,18 +52,23 @@ const Home = () => {
         <CarouselSection>
           <Title>Resultado:</Title>
           <CarouselItems {...settings}>
-            <ImageCard photo={restaurante} title="nome do restaurante" />
-            <ImageCard photo={restaurante} />
-            <ImageCard photo={restaurante} />
-            <ImageCard photo={restaurante} />
-            <ImageCard photo={restaurante} />
-            <ImageCard photo={restaurante} />
-            <ImageCard photo={restaurante} />
+            {restaurants.map((restaurant) => (
+              <ImageCard 
+                key={restaurant.place_id}
+                photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurant.icon}
+                title={restaurant.name ? restaurant.name : 'nome'}
+              />
+            ))}
           </CarouselItems>
-          <button onClick={() => setModalOpened(true)}>Abrir modal</button>
         </CarouselSection>
         <ListSection>
-          <RestaurantCard />
+          {restaurants.map((restaurant) => (
+            <RestaurantCard
+            key={restaurant.place_id}
+            restaurant={restaurant}
+            />
+          ))}
+         
         </ListSection>
       </Aside>
       <Map query={query} />

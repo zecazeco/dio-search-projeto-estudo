@@ -7,7 +7,7 @@ import { setRestaurants, setRestaurant } from '../../redux/modules/restaurants';
 export const MapContainer = (props) => {
   const dispatch = useDispatch();
   const [map, setMap] = useState(null);
-  //const { restaurants } = useSelector((state) => state.restaurants);
+  const { restaurants } = useSelector((state) => state.restaurants);
   const { google, query, placeId } = props;
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const MapContainer = (props) => {
     const request = {
       location: map.center,
       radius: '200',
-      type: ['restaurant'],//hospital
+      type: ['restaurant'],
       query,
     };
 
@@ -40,7 +40,7 @@ export const MapContainer = (props) => {
     const request = {
       location: center,
       radius: '20000',
-      type: ['restaurant'],//hospital
+      type: ['restaurant'],
     };
 
     service.nearbySearch(request, (results, status) => {
@@ -62,9 +62,17 @@ export const MapContainer = (props) => {
       centerAroundCurrentLocation
       onReady={onMapReady}
       onRecenter={onMapReady}
-      zoom={15}
       >
-
+      {restaurants.map((restaurant) => (
+        <Marker
+          key={restaurant.place_id}
+          name={restaurant.name}
+          position={{
+            lat: restaurant.geometry.location.lat(),
+            lng: restaurant.geometry.location.lng(),
+          }}
+        />
+      ))}
     </Map>
   );
 };
