@@ -6,7 +6,7 @@ import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { ImageCard } from "../../components";
+import { ImageCard, RestaurantCard } from "../../components";
 
 import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Map, Title, ListSection } from "./styles";
 
@@ -48,7 +48,7 @@ const Home = () => {
           </CarouselItems>
         </CarouselSection>
         <ListSection>
-          <li>item</li>
+          <RestaurantCard />
         </ListSection>
       </Aside>
       <Map />
