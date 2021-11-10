@@ -7,7 +7,7 @@ import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { ImageCard, RestaurantCard, Modal, Map } from "../../components";
+import { ImageCard, RestaurantCard, Modal, Map, Loader } from "../../components";
 
 import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Title, ListSection, ModalTitle, ModalContent } from "./styles";
 
@@ -57,16 +57,22 @@ const Home = () => {
           </TextField>        
         </HeaderSection>
         <CarouselSection>
-          <Title>Resultado:</Title>
-          <CarouselItems {...settings}>
-            {restaurants.map((restaurant) => (
-              <ImageCard 
-                key={restaurant.place_id}
-                photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurant.icon}
-                title={restaurant.name ? restaurant.name : 'nome'}
-              />
-            ))}
-          </CarouselItems>
+          {restaurants.length > 0 ? (
+            <>
+              <Title>Resultado:</Title>
+              <CarouselItems {...settings}>
+                {restaurants.map((restaurant) => (
+                  <ImageCard 
+                    key={restaurant.place_id}
+                    photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurant.icon}
+                    title={restaurant.name ? restaurant.name : 'nome'}
+                  />
+                ))}
+              </CarouselItems>
+            </>
+          ) : (
+            <Loader /> 
+          )}
         </CarouselSection>
         <ListSection>
           {restaurants.map((restaurant) => (

@@ -24,6 +24,7 @@ export const MapContainer = (props) => {
 
   function getRestaurantById(placeId) {
       const service = new google.maps.places.PlacesService(map);
+      dispatch(setRestaurant(null));
 
       const request = {
         placeId,
@@ -39,7 +40,8 @@ export const MapContainer = (props) => {
 
   function searchByQuery (query) {
     const service = new google.maps.places.PlacesService(map);
- 
+    dispatch(setRestaurants([]));
+
     const request = {
       location: map.center,
       radius: '200',
@@ -57,7 +59,8 @@ export const MapContainer = (props) => {
 
   const searchNearby = (map, center) => {
     const service = new google.maps.places.PlacesService(map);
-
+    dispatch(setRestaurants([]));
+    
     const request = {
       location: center,
       radius: '20000',
