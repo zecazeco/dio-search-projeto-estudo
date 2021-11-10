@@ -20,6 +20,7 @@ const Home = () => {
   const settings = {
     dots: false,
     infinite: true,
+    autoplay: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,

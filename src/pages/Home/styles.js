@@ -38,7 +38,7 @@ export const CarouselSection = styled.section`
 
 export const CarouselItems = styled(Slider)`
   .slick-slide {
-    margin-right: 16px;
+    margin-right: 30px;
   }
 `; 
 
