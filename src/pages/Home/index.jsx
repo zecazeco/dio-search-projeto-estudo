@@ -9,14 +9,15 @@ import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
 import { ImageCard, RestaurantCard, Modal, Map } from "../../components";
 
-import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Title, ListSection } from "./styles";
+import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Title, ListSection, ModalTitle, ModalContent } from "./styles";
 
 const Home = () => {
   const [inputValue, setImputValue] = useState('');
   const [modalOpened, setModalOpened] = useState(false);
   const [query, setQuery] = useState('');
-  const { restaurants } = useSelector((state) => state.restaurants);
-  
+  const [placeId, setPlaceId] = useState(null);
+  const { restaurants, restaurantSelected } = useSelector((state) => state.restaurants);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -31,6 +32,11 @@ const Home = () => {
     if (e.key === 'Enter') {
       setQuery(inputValue);
     }
+  };
+
+  const handleOpenModal = (placeId) => {
+    setPlaceId(placeId);
+    setModalOpened(true);
   };
 
   return (
@@ -66,14 +72,24 @@ const Home = () => {
           {restaurants.map((restaurant) => (
             <RestaurantCard
             key={restaurant.place_id}
+            onClick={() => { handleOpenModal(restaurant.place_id); }}
             restaurant={restaurant}
             />
           ))}
          
         </ListSection>
       </Aside>
-      <Map query={query} />
-    
+      <Map query={query} placeId={placeId} />
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
+              <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+              <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+              <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+              <ModalContent>
+                {restaurantSelected?.opening_hours?.open_now
+                  ? 'Aberto agora :)'
+                  : 'Fechado neste momento :('}
+              </ModalContent>
+        </Modal> 
     </Wrapper>
   );
 

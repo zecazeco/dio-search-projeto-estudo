@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Card = styled.div`
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
   width: 60px;
   height: 60px;
   border-radius: 8px;

@@ -16,6 +16,27 @@ export const MapContainer = (props) => {
     }
   }, [query]);
 
+  useEffect(() => {
+    if (placeId) {
+      getRestaurantById(placeId);
+    }
+  }, [placeId]);
+
+  function getRestaurantById(placeId) {
+      const service = new google.maps.places.PlacesService(map);
+
+      const request = {
+        placeId,
+        fields: ['name', 'opening_hours', 'formatted_address', 'formatted_phone_number'],
+      };
+
+      service.getDetails(request, (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          dispatch(setRestaurant(place));
+        }
+      });
+  }
+
   function searchByQuery (query) {
     const service = new google.maps.places.PlacesService(map);
  
@@ -62,6 +83,7 @@ export const MapContainer = (props) => {
       centerAroundCurrentLocation
       onReady={onMapReady}
       onRecenter={onMapReady}
+      {...props}
       >
       {restaurants.map((restaurant) => (
         <Marker
