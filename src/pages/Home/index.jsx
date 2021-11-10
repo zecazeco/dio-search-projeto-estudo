@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
-import Slider from "react-slick";
 
 import TextField, { Input} from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
-import restaurante from '../../assets/restaurante-fake.png';
-import { ImageCard, RestaurantCard, Modal, Map, Loader } from "../../components";
+
+import { ImageCard, RestaurantCard, Modal, Map, Loader, Skeleton } from "../../components";
 
 import { Wrapper, Aside, HeaderSection, Logo, CarouselSection, CarouselItems, Title, ListSection, ModalTitle, ModalContent } from "./styles";
 
@@ -87,14 +86,25 @@ const Home = () => {
       </Aside>
       <Map query={query} placeId={placeId} />
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
-              <ModalTitle>{restaurantSelected?.name}</ModalTitle>
-              <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
-              <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
-              <ModalContent>
-                {restaurantSelected?.opening_hours?.open_now
-                  ? 'Aberto agora :)'
-                  : 'Fechado neste momento :('}
-              </ModalContent>
+            {restaurantSelected ? (
+              <>
+                <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+                <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+                <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+                <ModalContent>
+                  {restaurantSelected?.opening_hours?.open_now
+                    ? 'Aberto agora :)'
+                    : 'Fechado neste momento :('}
+                </ModalContent>
+              </>
+            ) : (
+              <>
+                <Skeleton width='10px' height='10px' />
+                <Skeleton width='10px' height='10px' />
+                <Skeleton width='10px' height='10px' />
+                <Skeleton width='10px' height='10px' />
+              </>
+            )}
         </Modal> 
     </Wrapper>
   );
